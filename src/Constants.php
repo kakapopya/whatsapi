@@ -5,6 +5,9 @@ class Constants
     /**
      * Constant declarations.
      */
+    const WHATSAPP_VERSION_CHECKER = 'https://coderus.openrepos.net/whitesoft/whatsapp_scratch';
+    const WHATSAPP_CODE_HOST = 'v.whatsapp.net/v2/code';
+    const WHATSAPP_EXIST_HOST = 'v.whatsapp.net/v2/exist';
     const CONNECTED_STATUS = 'connected';                                                    // Describes the connection status with the WhatsApp server.
     const DISCONNECTED_STATUS = 'disconnected';                                              // Describes the connection status with the WhatsApp server.
     const MEDIA_FOLDER = 'media';                                                            // The relative folder to store received media files

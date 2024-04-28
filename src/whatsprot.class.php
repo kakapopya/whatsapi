@@ -67,17 +67,18 @@ class WhatsProt
     public    $reader;                  // An instance of the BinaryTreeNodeReader class.
 
     /**
-     * Default class constructor.
+     * 默认类构造函数。
      *
      * @param string $number
-     *   The user phone number including the country code without '+' or '00'.
+     *   用户电话号码，包括不带“+”或“00”的国家/地区代码。
      * @param string $nickname
-     *   The user name.
+     *   用户名。
      * @param $debug
-     *   Debug on or off, false by default.
+     *   调试打开或关闭，默认为false。
      * @param mixed $identityFile
-     *  Path to identity file, overrides default path
+     *  标识文件的路径，替代默认路径
      */
+
     public function __construct($number, $nickname, $debug = false, $identityFile = false)
     {
         $this->writer = new BinTreeNodeWriter();
@@ -199,13 +200,13 @@ class WhatsProt
     }
 
     /**
-     * Register account on WhatsApp using the provided code.
+     * 使用提供的代码在WhatsApp上注册帐户。
      *
      * @param integer $code
-     *   Numeric code value provided on requestCode().
+     *   requestCode（）中提供的数字代码值。
      *
      * @return object
-     *   An object with server response.
+     *   具有服务器响应的对象。
      *   - status: Account status.
      *   - login: Phone number with country code.
      *   - pw: Account password.
@@ -219,6 +220,7 @@ class WhatsProt
      *
      * @throws Exception
      */
+
     public function codeRegister($code)
     {
         if (!$phone = $this->dissectPhone()) {
@@ -2107,17 +2109,18 @@ class WhatsProt
     }
 
     /**
-     * Dissect country code from phone number.
+     * 从电话号码中提取国家代码。
      *
      * @return array
-     *   An associative array with country code and phone number.
-     *   - country: The detected country name.
-     *   - cc: The detected country code (phone prefix).
-     *   - phone: The phone number.
-     *   - ISO3166: 2-Letter country code
-     *   - ISO639: 2-Letter language code
-     *   Return false if country code is not found.
+     *   具有国家代码和电话号码的关联数组。
+     *   - country: 检测到的国家/地区名称。
+     *   - cc: 检测到的国家/地区代码（电话前缀）。
+     *   - phone: 电话号码。
+     *   - ISO3166: 2个字母的国家代码
+     *   - ISO639: 2-字母语言代码
+     *   如果找不到国家/地区代码，则返回false。
      */
+
     protected function dissectPhone()
     {
         if (($handle = fopen(dirname(__FILE__).'/countries.csv', 'rb')) !== false) {
@@ -2173,14 +2176,15 @@ class WhatsProt
     }
 
     /**
-     * Detects mnc from specified carrier.
+     * 从指定的载波检测mnc。
      *
      * @param string $lc          LangCode
      * @param string $carrierName Name of the carrier
      * @return string
      *
-     * Returns mnc value
+     * 返回mnc值
      */
+
     protected function detectMnc($lc, $carrierName)
     {
         $fp = fopen(__DIR__ . DIRECTORY_SEPARATOR . 'networkinfo.csv', 'r');
@@ -2203,10 +2207,11 @@ class WhatsProt
     }
 
     /**
-     * Send the nodes to the WhatsApp server to log in.
+     * 将节点发送到WhatsApp服务器以登录。
      *
      * @throws Exception
      */
+
     protected function doLogin()
     {
         if ($this->isLoggedIn()) {
@@ -2250,23 +2255,24 @@ class WhatsProt
     }
 
     /**
-     * Have we an active connection with WhatsAPP AND a valid login already?
+     * 我们是否已经与WhatsAPP建立了有效连接并进行了有效登录？
      *
      * @return bool
      */
+
     protected function isLoggedIn(){
-        //If you aren't connected you can't be logged in! ($this->isConnected())
-        //We are connected - but are we logged in? (the rest)
+        //如果您没有连接，则无法登录！（$this->isConnected（））
+        //我们已连接，但我们已登录吗？（其余）
         return ($this->isConnected() && !empty($this->loginStatus) && $this->loginStatus === Constants::CONNECTED_STATUS);
     }
 
     /**
-     * Create an identity string
+     * 创建标识字符串
      *
      * @param  mixed $identity_file IdentityFile (optional).
      * @return string           Correctly formatted identity
      *
-     * @throws Exception        Error when cannot write identity data to file.
+     * @throws Exception        无法将标识数据写入文件时出错。
      */
     protected function buildIdentity($identity_file = false)
     {
@@ -2448,13 +2454,14 @@ class WhatsProt
     }
 
     /**
-     * Get a decoded JSON response from Whatsapp server
+     * 从Whatsapp服务器获取解码的JSON响应
      *
      * @param  string $host  The host URL
      * @param  array  $query A associative array of keys and values to send to server.
      *
-     * @return null|object   NULL if the json cannot be decoded or if the encoded data is deeper than the recursion limit
+     * @return null|object  如果json无法解码或编码数据深度超过递归限制，则为NULL
      */
+
     protected function getResponse($host, $query)
     {
         // Build the url.
